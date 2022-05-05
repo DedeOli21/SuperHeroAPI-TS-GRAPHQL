@@ -30,11 +30,11 @@ Para instalar o <SuperHeroAPI-TS-GRAPHQL>, siga estas etapas:
 
 Windows || Linux:
 ```
-<comando_de_instalação>
-``` Entrar na pasta do projeto.
+Entrar na pasta do projeto.
 npm install
 npm start serve
 http://localhost:3005/
+``` 
 
 ## ☕ Ou Simplemente:
 Acesse a URL : http://localhost:3005/
