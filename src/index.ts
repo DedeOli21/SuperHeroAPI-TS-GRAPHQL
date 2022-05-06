@@ -18,7 +18,7 @@ async function startApolloServer() {
 
     server.applyMiddleware({ app, path: '/graphql' });
 
-    await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
+    await new Promise<void>(resolve => httpServer.listen(process.env.PORT || 5000, resolve));
     console.log(`🚀 Server ready at https://superheroesapibeta.herokuapp.com${server.graphqlPath}`);
 }
 
