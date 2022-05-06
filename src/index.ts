@@ -1,36 +1,25 @@
 
 import { ApolloServer } from "apollo-server-express";
-import { createServer } from "http";
-import express from "express";
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import express from 'express';
+import http from 'http';
 import schema from "./schema";
-import { graphqlHTTP } from "express-graphql";
 
-// export const server = new ApolloServer({
-//     schema,
-// });
+async function startApolloServer() {
+    const app = express() as any;
+    const httpServer = http.createServer(app);
+    
+    const server = new ApolloServer({
+        schema,
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    });
 
-// const port = 3005;
+    await server.start();
 
-// server.listen({port}).then(({ url }) => {
-//     console.log(`server running in port ${url}`);
-// });
+    server.applyMiddleware({ app, path: '/graphql' });
 
-const startServer = async () => { 
-    const app = express()
-    const httpServer = createServer(app)
-
-    const apolloServer = new ApolloServer({
-        schema
-    })
-
-    app.use(
-        "/graphql",
-        graphqlHTTP({
-          schema: schema,
-          graphiql: true,
-        })
-      );
-      app.listen(5000, () => console.log("Express is now live at localhost:5000"));
+    await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-startServer()
+startApolloServer();
