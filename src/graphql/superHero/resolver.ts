@@ -50,6 +50,12 @@ export default {
                 })
                 return listHeroesFiltered
             }
+        }
+    },
+    Mutation : {
+        createHero: async (_: any, { name, slug, powerstats, appearance, biography, work, connections, images }: any) => {
+            const superHeroAPI = new SuperHeroAPI()
+
+        }
     }
-}
 }
