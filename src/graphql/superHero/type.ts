@@ -62,4 +62,9 @@ export default gql`
         listHeroes(limit: Int, order: String): [SuperHero]
         searchHeroes(filter: String, query: String): [SuperHero]
     }
+
+    type Mutation {
+        createHero(name: String!): SuperHero
+        updateHero(id: Int!, name: String): SuperHero
+    }
 `
